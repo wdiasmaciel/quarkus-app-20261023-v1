@@ -85,9 +85,9 @@ https://quarkus.io/
    
    * `Agroal` para JDBC Datasources and connection pooling:
    ```text
-   Agroal
+   Agroal - DB connection pool
    ```
-   
+
 4. No canto superior direito, clique no botão **Generate your application**.
 
 5. No menu flutuante que abrir, selecione a opção **Push to GitHub** (isso vinculará sua conta e criará automaticamente um novo repositório para o projeto diretamente no seu perfil do GitHub).
@@ -100,23 +100,7 @@ https://quarkus.io/
 
 2. Clique no botão verde **Code**, mude para a aba **Codespaces** e selecione **Create codespace on main**.
 
-3. Assim que o terminal carregar, crie a pasta para o arquivo do banco de dados `SQLite` e configure o arquivo de ambiente `.env` executando:
-
-   ```bash
-   mkdir -p data
-   ```
-
-   ```bash
-   echo "DB_PATH=data/usuarios.db" > .env
-   ```
-
-   Conteúdo do arquivo `.env` na raiz do projeto:
-   
-   ```properties
-   DB_PATH=./data/usuario.db
-   ```
-
-4. Inicie o servidor em modo de desenvolvimento com o comando abaixo:
+3. Inicie o servidor em modo de desenvolvimento com o comando abaixo:
 
    ```bash
    mvn quarkus:dev
@@ -128,8 +112,45 @@ https://quarkus.io/
    mvn -Dquarkus.analytics.disabled=true quarkus:dev
    ```
 
-**OBS**:
-   *O servidor iniciará automaticamente na porta **8080**. A porta será configurada posteriormente no arquivo `application.properties`.*
+   ou
+   
+   ```bash
+   ./mvnw quarkus:dev -Dquarkus.test.continuous-testing=disabled
+   ```
+
+   **OBS**:
+   *O servidor iniciará automaticamente na porta **8080**. A porta será configurada posteriormente no arquivo `application.properties`.* Entretanto, no ambiente do `Codespaces` do `GitHub`, será usada outra porta, como a `5005`. Então, no `VS Code` do `Codespaces` do `GitHub`:
+
+   * Clique na aba `Portas` no painel inferior (painel do terminal).
+   * Clique no botão `Adicionar Porta`.
+   * Adicione a porta 8080. Mais a frente, será necessário adicionar a porta `8082` também. 
+   * Caso seja necessário, altere a visibilidade das portas, tornando-as portas públicas. Para isso, clique como o botão direito do mouse sobre a coluna `visibilidade`.
+   * Clique no ícone do `globo terrestre` de `Abrir no navegador`, ou copie a URL publicada e cole na barra de navegação do navegador.
+   * Adicione /hello à URL. Exemplo:
+   
+
+   https://glowing-bassoon-97qp4q4479443p49q-8080.app.github.dev/q/dev-ui/welcome
+
+
+   https://glowing-bassoon-97qp4q4479443p49q-8080.app.github.dev/hello
+
+
+
+3. Assim que o terminal carregar, crie a pasta para o arquivo do banco de dados `SQLite` e configure o arquivo de ambiente `.env` executando:
+
+   ```bash
+   mkdir -p data
+   ```
+
+   ```bash
+   echo "DB_PATH=./data/usuarios.db" > .env
+   ```
+
+   Conteúdo do arquivo `.env` na raiz do projeto:
+   
+   ```properties
+   DB_PATH=./data/usuario.db
+   ```
 
 ---
 
@@ -297,13 +318,31 @@ quarkus.http.port=8082
 # Configuração do banco de dados para utilizar o SQLite corporativo:
 quarkus.datasource.db-kind=sqlite
 
-# Injeta de forma dinâmica a variável de ambiente DB_PATH configurada no arquivo .env:
-quarkus.datasource.jdbc.url=jdbc:sqlite:${DB_PATH}
+# Injeta de forma dinâmica a variável de ambiente DB_PATH configurada no arquivo .env. Se não encontrar o arquivo ou se o arquivo não tiver a variável DB_PATH, criará o arquivo teste.db:
+quarkus.datasource.jdbc.url=jdbc:sqlite:${DB_PATH:./data/teste.db}
 
 # Configurações adicionais para otimização de pool de conexões do banco de dados:
 quarkus.datasource.jdbc.max-size=5
 quarkus.datasource.jdbc.min-size=1
 ```
+**OBS**:
+Neste ponto, será necessário reiniciar o servidor. A aplicação já estava em execução antes da alteração da porta. O processo precisa recarregar o application.properties. É sempre bom verificar se há outro processo usando a porta. Então, pare o servidor atual (`CTRL + c` no terminal) e reinicie:
+
+   ```bash
+   mvn quarkus:dev
+   ```
+
+   ou 
+
+   ```bash
+   mvn -Dquarkus.analytics.disabled=true quarkus:dev
+   ```
+
+   ou
+   
+   ```bash
+   ./mvnw quarkus:dev -Dquarkus.test.continuous-testing=disabled
+   ```
 
 ---
 
