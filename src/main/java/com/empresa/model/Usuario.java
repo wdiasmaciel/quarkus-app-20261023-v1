@@ -5,16 +5,16 @@ import java.time.LocalDate;
 public class Usuario {
     private Long id;
     private String nome;
-    private LocalDate nacimiento; // Data de nascimento do usuário.
+    private LocalDate nascimento; // Data de nascimento do usuário.
 
     // Construtor padrão (obrigatório para o Jackson converter JSON em Objeto)
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, LocalDate nacimiento) {
+    public Usuario(Long id, String nome, LocalDate nascimento) {
         this.id = id;
         this.nome = nome;
-        this.nacimiento = nacimiento;
+        this.nascimento = nascimento;
     }
 
     // Getters e Setters
@@ -34,11 +34,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public LocalDate getNacimiento() {
-        return nacimiento;
+    public LocalDate getNascimento() {
+        return nascimento;
     }
 
-    public void setNacimiento(LocalDate nacimiento) {
-        this.nacimiento = nacimiento;
+    public void setNascimento(LocalDate nascimento) {
+        this.nascimento = nascimento;
     }
 }
