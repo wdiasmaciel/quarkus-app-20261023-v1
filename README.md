@@ -722,6 +722,11 @@ https://www.youtube.com/watch?v=vwsfBKJenvw
 
 https://www.youtube.com/watch?v=6lHxh5EPEuU&t=1s
 
+
+https://github.com/wdiasmaciel/quarkus-app-20261023-v1
+
+https://github.com/wdiasmaciel/quarkus-app-20261023-v2
+
 ---
 
 # Exercícios
