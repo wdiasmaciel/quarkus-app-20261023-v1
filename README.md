@@ -714,6 +714,16 @@ curl -X PUT http://localhost:8082/usuarios/1 \
 curl -X DELETE http://localhost:8082/usuarios/1
 ```
 
+---
+
+## Link
+
+https://www.youtube.com/watch?v=vwsfBKJenvw
+
+https://www.youtube.com/watch?v=6lHxh5EPEuU&t=1s
+
+---
+
 # Exercícios
 
 Empregando a linguagem de programação Java, o microframework Quarkus, o banco de dados SQLite e Padrão DAO, implemente as seguintes APIs:
